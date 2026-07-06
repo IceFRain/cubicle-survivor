@@ -21,7 +21,8 @@
 ## 🛠️ 主界面配置 
 简单的输入，即可完成软件配置
 
-<img width="267" height="183" alt="image" src="https://github.com/user-attachments/assets/1cda0867-8cd5-42e6-bde3-6f4de1c393b6" />
+<img width="279" height="194" alt="image" src="https://github.com/user-attachments/assets/b23b70aa-8ada-4636-af23-73160bbc9231" />
+
 
 
 # 🚀 开始使用
