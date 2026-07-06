@@ -24,8 +24,10 @@
 <img width="267" height="183" alt="image" src="https://github.com/user-attachments/assets/1cda0867-8cd5-42e6-bde3-6f4de1c393b6" />
 
 
-# 💻 开始使用(*目前只支持windows x64)
-解压后双击“pomodoro_timer.exe”会在屏幕中央显示悬浮窗，拖动到理想的位置，右键悬浮窗，开始即可。
+# 🚀 开始使用
+👉[下载地址](https://github.com/IceFRain/pomodoro_timer/releases)
+
+下载对应压缩包(目前仅支持windows)，解压后双击“pomodoro_timer.exe”运行，悬浮窗会在屏幕中央显示，拖动到理想的位置，右键悬浮窗，开始即可。
 
 # 🎯 经典番茄工作法推荐
 如果你不知道怎么设置最适合自己，可以试试软件内置的默认黄金法则：
