@@ -32,7 +32,7 @@
 
 ## 🔔 轻打扰通知
 拒绝夺命连环 Call！当倒计时结束、或者你的饮水量达成每日 KPI 时，软件只会通过 Windows 系统通知进行温柔提醒。不弹窗、不卡顿、轻打扰，非常礼貌。
-<br /><img width="402" height="199" alt="image" src="https://github.com/user-attachments/assets/b711149e-3fa1-4697-b211-30f3443ca760" />
+<br /><img width="397" height="191" alt="image" src="https://github.com/user-attachments/assets/06b113c0-f748-4258-9237-69048a41dfe4" />
 
 ---
 
@@ -55,7 +55,8 @@
 # 🛠️ 幸存者生存指南（使用说明）
 
 ### 📥 第一步：抓取软件
-点击下方传送门，去 Release 页面把最新版的生存物资带回家：
+点击下方传送门，去发布页面把最新版的生存物资带回家：
+
 👉 **[官方下载链接 / GitHub Releases](https://github.com/IceFRain/cubicle-survivor/releases)**
 
 > **💡 电脑版本怎么选？**
