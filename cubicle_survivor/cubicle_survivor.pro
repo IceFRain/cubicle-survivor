@@ -37,4 +37,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     icons.qrc
 
-RC_ICONS = cup.ico
+RC_ICONS = ghanta.ico

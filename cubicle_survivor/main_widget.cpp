@@ -20,7 +20,7 @@ MainWidget::MainWidget(QWidget *parent)
 
     //设置托盘图标
     m_tray_icon = new QSystemTrayIcon(this);
-    m_tray_icon->setIcon(QIcon(":/icons/cup.png"));
+    m_tray_icon->setIcon(QIcon(":/icons/ghanta.png"));
     m_tray_icon->show();
     //设置浮窗界面
     m_floating_w.show();
@@ -83,6 +83,7 @@ MainWidget::MainWidget(QWidget *parent)
     connect(ui->LE_clock_rest_time,&QLineEdit::editingFinished,this,&MainWidget::slot_le_editing_finished);
     connect(ui->LE_drink_goal,&QLineEdit::editingFinished,this,&MainWidget::slot_le_editing_finished);
     connect(ui->LE_drink_cup_capacity,&QLineEdit::editingFinished,this,&MainWidget::slot_le_editing_finished);
+    connect(ui->LE_drink_record,&QLineEdit::returnPressed,this,&MainWidget::slot_pb_drink_record_clicked);
 
     //任务图标双击动作
     connect(m_tray_icon, &QSystemTrayIcon::activated,this, [this](QSystemTrayIcon::ActivationReason reason){
