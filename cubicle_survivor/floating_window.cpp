@@ -35,17 +35,13 @@ FloatingWindow::FloatingWindow(QWidget *parent) :
     setMinimumSize(1,1);
     resize(WINDOW_WIDTH,WINDOW_HEIGHT);
 
-
-    this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
-    this->show();
-
-////windows平台设置
-//#ifdef Q_OS_WIN
-//    //获取窗口句柄
-//    f_hwnd = (HWND)this->winId();
-//    //置顶显示,不聚焦
-//    SetWindowPos(f_hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
-//#endif
+//windows平台设置
+#ifdef Q_OS_WIN
+    //获取窗口句柄
+    f_hwnd = (HWND)this->winId();
+    //置顶显示,不聚焦
+    SetWindowPos(f_hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+#endif
 
     //进度条样式设置
     ui->B_time->setStyleSheet(
@@ -294,19 +290,16 @@ void FloatingWindow::mouseDoubleClickEvent(QMouseEvent *event)
  */
 void FloatingWindow::refresh_windows()
 {
-//#ifdef Q_OS_WIN
-//    if(!this->isHidden())
-//    {
+#ifdef Q_OS_WIN
+    if(!this->isHidden())
+    {
         resize(WINDOW_WIDTH,WINDOW_HEIGHT);
-        this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
-        this->show();
-//        QRect rect = this->geometry();   // 或者 frameGeometry()
-//        int x = rect.x();
-//        int y = rect.y();
-//        int w = rect.width();
-//        int h = rect.height();
-
-//        SetWindowPos(f_hwnd, HWND_TOPMOST, x, y, w, h, SWP_SHOWWINDOW);
-//    }
-//#endif
+        QRect rect = this->geometry();
+        int x = rect.x();
+        int y = rect.y();
+        int w = rect.width();
+        int h = rect.height();
+        SetWindowPos(f_hwnd, HWND_TOPMOST, x, y, w, h, SWP_SHOWWINDOW);
+    }
+#endif
 }
