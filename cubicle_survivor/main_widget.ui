@@ -96,7 +96,7 @@
           <item>
            <widget class="QCheckBox" name="CB_clock_floating_window_show">
             <property name="text">
-             <string>显示悬浮窗</string>
+             <string>悬浮窗显示</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -255,7 +255,7 @@
         <item>
          <widget class="QCheckBox" name="CB_drink_floating_window_show">
           <property name="text">
-           <string>显示悬浮窗</string>
+           <string>悬浮窗显示</string>
           </property>
           <property name="checked">
            <bool>true</bool>

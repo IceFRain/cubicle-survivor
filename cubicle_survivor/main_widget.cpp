@@ -36,9 +36,9 @@ MainWidget::MainWidget(QWidget *parent)
     QAction *continue_action = new QAction("继续", this);
     connect(continue_action, &QAction::triggered, this, &MainWidget::slot_pb_continue_clicked);
     //连接悬浮窗右键菜单
-    connect(&m_floating_w,&FloatingWindow::sig_start_loop,this,&MainWidget::slot_pb_ok_clicked);
-    connect(&m_floating_w,&FloatingWindow::sig_pause_loop,this,&MainWidget::slot_pb_pause_clicked);
-    connect(&m_floating_w,&FloatingWindow::sig_continue_loop,this,&MainWidget::slot_pb_continue_clicked);
+    connect(&m_floating_w,&FloatingWindow::sig_clock_start_loop,this,&MainWidget::slot_pb_ok_clicked);
+    connect(&m_floating_w,&FloatingWindow::sig_clock_pause_loop,this,&MainWidget::slot_pb_pause_clicked);
+    connect(&m_floating_w,&FloatingWindow::sig_clock_continue_loop,this,&MainWidget::slot_pb_continue_clicked);
     //连接悬浮窗双击动作
     connect(&m_floating_w, &FloatingWindow::sig_double_clicked,this, [this](){
                     this->showNormal();   // 恢复窗口
