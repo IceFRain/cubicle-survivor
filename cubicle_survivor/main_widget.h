@@ -11,6 +11,8 @@
 #include <QDate>
 #include <QMessageBox>
 #include <QDesktopServices>
+#include <ShlObj.h>
+#include <QDir>
 #include "floating_window.h"
 
 //设置项结构体
@@ -60,6 +62,8 @@ private slots:
     void slot_cb_clock_floating_window_show_toggled(bool status);
     //饮水记录悬浮窗显示复选框改变槽
     void slot_cb_drink_floating_window_show_toggled(bool status);
+    //自启动复选框改变槽
+    void slot_cb_auto_start_toggled(bool status);
 
     //编辑框改变槽
     void slot_le_editing_finished(void);
@@ -91,6 +95,14 @@ private:
     void save_settings_to_file(void);
     //设置默认参数
     void set_to_default_settings(void);
+
+    //获取开机自启动路径
+    QString get_auto_start_short_cut_path(void) const;
+    //创建开机自启动
+    bool creat_auto_start(void);
+    //删除开机自启动
+    bool delete_auto_start(void);
+
 
     //饮水进度条显示数据
     void bar_drink_show(int value);

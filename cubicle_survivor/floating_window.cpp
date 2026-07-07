@@ -7,8 +7,8 @@
 HWND f_hwnd;
 #endif
 
-#define PROGRESS_BAR_WIDTH          55
-#define PROGRESS_BAR_HEIGHT         20
+#define PROGRESS_BAR_WIDTH          52
+#define PROGRESS_BAR_HEIGHT         18
 #define WINDOW_WIDTH                (PROGRESS_BAR_WIDTH*m_bar_show_count + m_bar_show_count-1)
 #define WINDOW_HEIGHT               PROGRESS_BAR_HEIGHT
 
@@ -146,13 +146,14 @@ void FloatingWindow::set_bar_clock_show(bool status)
             m_bar_show_count--;
         }
     }
+    //设置隐藏状态后刷新窗口
     ui->B_time->setHidden(!status);
     refresh_windows();
 }
 
 /**
   * @brief 设置饮水量
-  * @param value 当前饮水量
+  * @param value 当前已饮水量
   * @retval 无
   * 	@arg
  */
@@ -250,7 +251,7 @@ void FloatingWindow::slot_bar_clock_right_clicked(const QPoint &pos)
 void FloatingWindow::slot_bar_drink_right_clicked(const QPoint &pos)
 {
     QMenu menu;
-    QAction *record_cup = menu.addAction("记录一杯");
+    QAction *record_cup = menu.addAction("记一杯");
     QAction *quit_action = menu.addAction("退出");
     QAction *selected = menu.exec(ui->B_drink->mapToGlobal(pos));
     if (selected == quit_action)

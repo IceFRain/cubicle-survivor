@@ -29,7 +29,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,1,1">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,5,0">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,5,1">
           <item>
            <widget class="QLabel" name="L_clock_work_time">
             <property name="text">
@@ -57,7 +57,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,5,0">
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,5,1">
           <item>
            <widget class="QLabel" name="L_clock_rest_time">
             <property name="text">
@@ -127,7 +127,7 @@
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_9">
+      <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="3,3,3,1">
        <item>
         <widget class="QPushButton" name="PB_version">
          <property name="text">
@@ -139,6 +139,13 @@
         <widget class="QPushButton" name="PB_project_url">
          <property name="text">
           <string>项目官网</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="CB_auto_start">
+         <property name="text">
+          <string>开机自启</string>
          </property>
         </widget>
        </item>
@@ -245,7 +252,7 @@
         <item>
          <widget class="QPushButton" name="PB_drink_record_cup">
           <property name="text">
-           <string>记录1杯</string>
+           <string>记一杯</string>
           </property>
          </widget>
         </item>

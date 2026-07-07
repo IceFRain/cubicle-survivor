@@ -35,6 +35,14 @@ MainWidget::MainWidget(QWidget *parent)
     connect(pause_action, &QAction::triggered, this, &MainWidget::slot_pb_clock_pause_clicked);
     QAction *continue_action = new QAction("继续", this);
     connect(continue_action, &QAction::triggered, this, &MainWidget::slot_pb_clock_continue_clicked);
+    QAction *record_cup_action = new QAction("记一杯", this);
+    connect(record_cup_action, &QAction::triggered, this, &MainWidget::slot_pb_drink_record_cup_clicked);
+    menu->addAction(start_action);
+    menu->addAction(pause_action);
+    menu->addAction(continue_action);
+    menu->addAction(record_cup_action);
+    menu->addAction(quit_action);
+    m_tray_icon->setContextMenu(menu);
     //连接时钟悬浮窗右键菜单
     connect(&m_floating_w,&FloatingWindow::sig_clock_start_loop,this,&MainWidget::slot_pb_clock_start_clicked);
     connect(&m_floating_w,&FloatingWindow::sig_clock_pause_loop,this,&MainWidget::slot_pb_clock_pause_clicked);
@@ -48,16 +56,11 @@ MainWidget::MainWidget(QWidget *parent)
                     this->activateWindow(); // 激活窗口
                 });
 
-    menu->addAction(start_action);
-    menu->addAction(pause_action);
-    menu->addAction(continue_action);
-    menu->addAction(quit_action);
-    m_tray_icon->setContextMenu(menu);
-
     //数据初始化
     m_clock_run_status = 0;
     m_clock_loop_last = 0;
     read_settings_from_file();
+    ui->CB_auto_start->setChecked(QFile::exists(get_auto_start_short_cut_path()));
     //时钟定时器间隔1s
     m_clock_timer.setInterval(1000);
 
@@ -66,6 +69,7 @@ MainWidget::MainWidget(QWidget *parent)
     //连接复选框
     connect(ui->CB_clock_floating_window_show,&QCheckBox::toggled,this,&MainWidget::slot_cb_clock_floating_window_show_toggled);
     connect(ui->CB_drink_floating_window_show,&QCheckBox::toggled,this,&MainWidget::slot_cb_drink_floating_window_show_toggled);
+    connect(ui->CB_auto_start,&QCheckBox::toggled,this,&MainWidget::slot_cb_auto_start_toggled);
     //连接按钮
     connect(ui->PB_version,&QPushButton::clicked,this,&MainWidget::slot_pb_version_clicked);
     connect(ui->PB_project_url,&QPushButton::clicked,this,&MainWidget::slot_pb_project_url_clicked);
@@ -88,7 +92,7 @@ MainWidget::MainWidget(QWidget *parent)
                     this->activateWindow(); // 激活窗口
                 }});
 
-    //样式设计
+    //进度条样式设计
     ui->B_drink->setStyleSheet(
                 "QProgressBar { "
                 " border: 1px solid grey; "
@@ -111,6 +115,7 @@ MainWidget::MainWidget(QWidget *parent)
 MainWidget::~MainWidget()
 {
     m_clock_timer.disconnect();
+    m_tray_icon->disconnect();
     delete ui;
 }
 
@@ -127,7 +132,6 @@ void MainWidget::slot_pb_version_clicked()
     QString bt = QString(__DATE__ " " __TIME__).simplified();
     QDateTime dt = QLocale(QLocale::English).toDateTime(bt, "MMM d yyyy HH:mm:ss");
     version_str = version_str + "Build time:" + dt.toString("yyyy.MM.dd HH:mm:ss");
-
     QMessageBox::information(this, "版本信息", version_str);
 }
 
@@ -150,7 +154,9 @@ void MainWidget::slot_pb_project_url_clicked()
  */
 void MainWidget::slot_pb_clock_start_clicked()
 {
+    //切换到运行状态
     m_clock_run_status = 1;
+    //从工作时间开始倒计时
     m_clock_loop_last = m_settings.clock_work_time;
     m_floating_w.set_clock_range(0,m_settings.clock_work_time);
     m_floating_w.set_clock_value(m_settings.clock_work_time);
@@ -224,6 +230,24 @@ void MainWidget::slot_cb_drink_floating_window_show_toggled(bool status)
 }
 
 /**
+  * @brief 自启动复选框改变槽
+  * @param status 改变后的状态
+  * @retval 无
+  * 	@arg
+ */
+void MainWidget::slot_cb_auto_start_toggled(bool status)
+{
+    if (status)
+    {
+        creat_auto_start();
+    }
+    else
+    {
+        delete_auto_start();
+    }
+}
+
+/**
   * @brief 编辑框改变槽
   * @param 无
   * @retval 无
@@ -231,6 +255,7 @@ void MainWidget::slot_cb_drink_floating_window_show_toggled(bool status)
  */
 void MainWidget::slot_le_editing_finished()
 {
+    //编辑框改变完后读取所有编辑框
     m_settings.clock_work_time = ui->LE_clock_work_time->text().toInt()*60;
     m_settings.clock_rest_time = ui->LE_clock_rest_time->text().toInt()*60;
     if(m_settings.drink_goal != ui->LE_drink_goal->text().toInt())
@@ -242,7 +267,9 @@ void MainWidget::slot_le_editing_finished()
     m_settings.drink_cup_capacity = ui->LE_drink_cup_capacity->text().toInt();
     m_settings.clock_floating_show = ui->CB_clock_floating_window_show->isChecked();
     m_settings.drink_floating_show = ui->CB_drink_floating_window_show->isChecked();
+    //刷新进度条显示
     bar_drink_show(0);
+    //保存配置
     save_settings_to_file();
 }
 
@@ -259,7 +286,7 @@ void MainWidget::slot_clock_timer_timeout()
     {
         switch (m_clock_run_status)
         {
-            //切换状态
+            //切换状态并进行提示
             case 1:
                 m_clock_run_status = 0;
                 m_clock_loop_last = m_settings.clock_rest_time;
@@ -350,7 +377,7 @@ void MainWidget::read_settings_from_file()
     QDate today = QDate::currentDate();
     if (!m_settings.drink_record_date.isValid() || m_settings.drink_record_date != today)
     {
-        //新的一天drink_record置零
+        //新的一天,drink_record置零
         m_settings.drink_record_date = today;
         m_settings.drink_record = 0;
     }
@@ -423,6 +450,70 @@ void MainWidget::set_to_default_settings()
 }
 
 /**
+  * @brief 获取开机自启动路径
+  * @param 无
+  * @retval 无
+  * 	@arg
+ */
+QString MainWidget::get_auto_start_short_cut_path() const
+{
+    wchar_t buf[MAX_PATH];
+    SHGetFolderPathW(NULL, CSIDL_STARTUP, NULL, 0, buf);
+    return QString::fromWCharArray(buf)
+           + "\\" + QCoreApplication::applicationName() + ".lnk";
+}
+
+/**
+  * @brief 创建开机自启动
+  * @param 无
+  * @retval 是否成功
+  * 	@arg true成功 false失败
+ */
+bool MainWidget::creat_auto_start()
+{
+    //CoCreateInstance创建一个ShellLink COM实例,用于构建.lnk快捷方式
+    IShellLinkW *psl = nullptr;
+    HRESULT hr = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER,
+                                  IID_IShellLinkW, (void**)&psl);
+    if (FAILED(hr))
+    {
+        //COM创建失败 直接返回
+        return false;
+    }
+
+    //目标路径指向程序自身的exe路径
+    psl->SetPath(QCoreApplication::applicationFilePath().toStdWString().c_str());
+    //工作目录 设为exe所在文件夹(路径转为原生分隔符\)
+    psl->SetWorkingDirectory(
+        QDir::toNativeSeparators(QCoreApplication::applicationDirPath())
+            .toStdWString().c_str());
+
+    //通过QueryInterface获取IPersistFile接口,用于将快捷方式写入磁盘文件
+    IPersistFile *ppf = nullptr;
+    hr = psl->QueryInterface(IID_IPersistFile, (void**)&ppf);
+    bool ok = false;
+    if (SUCCEEDED(hr))
+    {
+        //保存到shell:startup目录 TRUE表示覆盖已有同名文件
+        ok = SUCCEEDED(ppf->Save(get_auto_start_short_cut_path().toStdWString().c_str(), TRUE));
+        ppf->Release();
+    }
+    psl->Release();
+    return ok;
+}
+
+/**
+  * @brief 删除开机自启动
+  * @param 无
+  * @retval 无
+  * 	@arg
+ */
+bool MainWidget::delete_auto_start()
+{
+    return QFile::remove(get_auto_start_short_cut_path());
+}
+
+/**
   * @brief 饮水进度条显示数据
   * @param value 饮水变化值
   * @retval 无
@@ -430,17 +521,21 @@ void MainWidget::set_to_default_settings()
  */
 void MainWidget::bar_drink_show(int value)
 {
+    //记录后到达目标则进行提示
     if(m_settings.drink_record < m_settings.drink_goal
        && (m_settings.drink_record + value) >= m_settings.drink_goal)
     {
         m_tray_icon->showMessage("恭喜", "达成今日饮水目标~");
     }
 
+    //饮水量加上本次的值,不允许减到负值
     m_settings.drink_record += value;
     if(m_settings.drink_record < 0)
     {
         m_settings.drink_record = 0;
     }
+
+    //进度条最多到100
     if(m_settings.drink_record < m_settings.drink_goal)
     {
         ui->B_drink->setValue(m_settings.drink_record);
@@ -449,9 +544,12 @@ void MainWidget::bar_drink_show(int value)
     {
         ui->B_drink->setValue(m_settings.drink_goal);
     }
+    //主界面显示具体饮水值
     ui->B_drink->setFormat(QString("%1 / %2 ml").arg(m_settings.drink_record).arg(m_settings.drink_goal));
 
+    //悬浮窗显示百分比
     m_floating_w.set_drink_value(m_settings.drink_record);
+    //保存到文件
     save_settings_to_file();
 }
 
