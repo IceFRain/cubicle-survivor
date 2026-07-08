@@ -503,19 +503,15 @@ void MainWidget::push_message(NotifyType type)
             box->setStandardButtons(QMessageBox::Ok);
             //关闭时自动释放内存
             box->setAttribute(Qt::WA_DeleteOnClose);
+            box->setWindowFlags(box->windowFlags() | Qt::WindowStaysOnTopHint);
+            box->show();
 
             //定位到鼠标当前所在的屏幕进行弹窗
             QScreen *screen = QGuiApplication::screenAt(QCursor::pos());
             if (screen)
             {
                 QRect screenRect = screen->availableGeometry();
-                box->show();
                 box->move(screenRect.center() - box->rect().center());
-                qDebug()<<"show";
-            }
-            else
-            {
-                box->open();
             }
         }
     }

@@ -170,7 +170,7 @@ void SettingsWindow::save_settings_to_file()
     QFile file("settings.json");
     if (!file.open(QIODevice::WriteOnly))
     {
-        qDebug()<<"settings.json 打开失败";
+        qDebug()<<"settings.json open failed";
         return;
     }
     file.write(QJsonDocument(root).toJson(QJsonDocument::Indented));

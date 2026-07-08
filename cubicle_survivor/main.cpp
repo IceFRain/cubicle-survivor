@@ -125,7 +125,8 @@ int main(int argc, char *argv[])
     app_config();
 
     QApplication a(argc, argv);
-
+    //不要在最后一个窗口关闭时关闭程序
+    a.setQuitOnLastWindowClosed(false);
     MainWidget w;
     //启动不显示主界面
 //    w.show();
