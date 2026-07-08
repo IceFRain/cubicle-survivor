@@ -129,11 +129,9 @@ MainWidget::~MainWidget()
  */
 void MainWidget::slot_pb_more_settings_clicked()
 {
-    if (m_settings_w.isMinimized())
-    {
-        m_settings_w.setWindowState(m_settings_w.windowState() & ~Qt::WindowMinimized);
-    }
-    m_settings_w.show();
+    m_settings_w.showNormal();
+    m_settings_w.raise();
+    m_settings_w.activateWindow();
 }
 
 /**
