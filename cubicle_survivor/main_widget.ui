@@ -21,7 +21,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="1,1">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_3" stretch="5,1">
+    <layout class="QVBoxLayout" name="verticalLayout_3" stretch="5,0">
      <item>
       <widget class="QGroupBox" name="groupBox_clock">
        <property name="title">
@@ -43,7 +43,7 @@
           <item>
            <widget class="QLineEdit" name="LE_clock_work_time">
             <property name="text">
-             <string>25</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -71,7 +71,7 @@
           <item>
            <widget class="QLineEdit" name="LE_clock_rest_time">
             <property name="text">
-             <string>5</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -127,7 +127,27 @@
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,3,3,3,1">
+      <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,5,5,1">
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="CB_auto_start">
+         <property name="text">
+          <string> 开机自启</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QPushButton" name="PB_more_settings">
          <property name="text">
@@ -136,28 +156,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="PB_version">
-         <property name="text">
-          <string>版本信息</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="PB_project_url">
-         <property name="text">
-          <string>项目官网</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="CB_auto_start">
-         <property name="text">
-          <string>开机自启</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
+        <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -194,7 +193,7 @@
         <item>
          <widget class="QLineEdit" name="LE_drink_goal">
           <property name="text">
-           <string>1800</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -228,7 +227,7 @@
         <item>
          <widget class="QLineEdit" name="LE_drink_cup_capacity">
           <property name="text">
-           <string>500</string>
+           <string/>
           </property>
          </widget>
         </item>

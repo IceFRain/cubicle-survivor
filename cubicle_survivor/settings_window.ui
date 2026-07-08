@@ -19,12 +19,12 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,10">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QListWidget" name="LW_list">
      <property name="maximumSize">
       <size>
-       <width>150</width>
+       <width>100</width>
        <height>16777215</height>
       </size>
      </property>
@@ -58,7 +58,7 @@
    <item>
     <widget class="QStackedWidget" name="SW_settings">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -217,48 +217,92 @@
       </layout>
      </widget>
      <widget class="QWidget" name="page_2">
-      <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1,1,10">
+      <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="L_version_tips">
-           <property name="text">
-            <string>版本号:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="L_version">
-           <property name="text">
-            <string>vx.x.x</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLabel" name="L_build_time_tips">
-           <property name="text">
-            <string>编译时间:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="L_build_time">
-           <property name="text">
-            <string>yyyy-mm-dd hh:mm:ss</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="PB_project_url">
-         <property name="text">
-          <string>打开项目官网</string>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>版本信息</string>
          </property>
+         <layout class="QGridLayout" name="gridLayout" rowminimumheight="1,3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="L_version_tips">
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>版本号:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="L_version">
+            <property name="text">
+             <string>vx.x.x</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="L_build_time_tips">
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>编译时间:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="L_build_time">
+            <property name="text">
+             <string>yyyy-mm-dd hh:mm:ss</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>软件更新</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QPushButton" name="PB_project_url">
+            <property name="text">
+             <string>打开项目官网</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="title">
+          <string>重置</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QPushButton" name="PB_reset_settings">
+            <property name="text">
+             <string>设置初始化</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
@@ -269,7 +313,7 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>160</height>
+           <height>124</height>
           </size>
          </property>
         </spacer>
