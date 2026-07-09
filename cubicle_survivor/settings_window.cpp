@@ -115,9 +115,11 @@ void SettingsWindow::read_settings_from_file()
     m_settings.drink.record        = drink["record"].toInt(0);
     m_settings.drink.floating_show = drink["floating_show"].toInt(1);
     m_settings.drink.record_date   = QDate::fromString(drink["record_date"].toString(), Qt::ISODate);
-    if (!m_settings.drink.record_date.isValid())
+    QDate today = QDate::currentDate();
+    if (!m_settings.drink.record_date.isValid() || m_settings.drink.record_date != today)
     {
         m_settings.drink.record_date = QDate::currentDate();
+        m_settings.drink.record = 0;
     }
 
     m_settings.notice.clock_notice_enable  = notice["clock_notice_enable"].toInt(1);
