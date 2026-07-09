@@ -49,7 +49,7 @@ typedef struct
 }AllSettings;
 
 
-#define SOFT_VERSION    "V1.1.1"
+#define SOFT_VERSION    "V1.1.2"
 
 
 namespace Ui {
@@ -72,7 +72,8 @@ public:
 
 public slots:
     //项目官网按钮点击槽
-    void slot_pb_project_url_clicked(void);
+    void slot_pb_project_url_gitee_clicked(void);
+    void slot_pb_project_url_github_clicked(void);
     //设置初始化按钮点击槽
     void slot_pb_reset_settings_clicked(void);
 

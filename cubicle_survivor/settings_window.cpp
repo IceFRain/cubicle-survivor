@@ -31,7 +31,8 @@ SettingsWindow::SettingsWindow(QWidget *parent) :
     connect(ui->LW_list,&QListWidget::currentRowChanged,ui->SW_settings,&QStackedWidget::setCurrentIndex);
 
     //设置按钮连接
-    connect(ui->PB_project_url,&QPushButton::clicked,this,&SettingsWindow::slot_pb_project_url_clicked);
+    connect(ui->PB_project_url_github,&QPushButton::clicked,this,&SettingsWindow::slot_pb_project_url_github_clicked);
+    connect(ui->PB_project_url_gitee,&QPushButton::clicked,this,&SettingsWindow::slot_pb_project_url_gitee_clicked);
     connect(ui->PB_reset_settings,&QPushButton::clicked,this,&SettingsWindow::slot_pb_reset_settings_clicked);
 
     //复选框连接
@@ -180,12 +181,23 @@ void SettingsWindow::save_settings_to_file()
 }
 
 /**
-  * @brief 项目官网按钮点击槽
+  * @brief 项目gitee源点击槽
   * @param 无
   * @retval 无
   * 	@arg
  */
-void SettingsWindow::slot_pb_project_url_clicked()
+void SettingsWindow::slot_pb_project_url_gitee_clicked()
+{
+    QDesktopServices::openUrl(QUrl("https://gitee.com/IceFRain/cubicle-survivor"));
+}
+
+/**
+  * @brief 项目github源点击槽
+  * @param 无
+  * @retval 无
+  * 	@arg
+ */
+void SettingsWindow::slot_pb_project_url_github_clicked()
 {
     QDesktopServices::openUrl(QUrl("https://github.com/IceFRain/cubicle-survivor"));
 }

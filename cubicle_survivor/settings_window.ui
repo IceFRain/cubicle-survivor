@@ -58,7 +58,7 @@
    <item>
     <widget class="QStackedWidget" name="SW_settings">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -278,11 +278,18 @@
          <property name="title">
           <string>软件更新</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="PB_project_url">
+           <widget class="QPushButton" name="PB_project_url_gitee">
             <property name="text">
-             <string>打开项目官网</string>
+             <string>Gitee源</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="PB_project_url_github">
+            <property name="text">
+             <string>Github源</string>
             </property>
            </widget>
           </item>
